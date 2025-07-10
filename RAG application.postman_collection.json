@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "7b591e36-6fd5-4291-bb76-be88f4daeacf",
+		"name": "RAG application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4698578",
+		"_collection_link": "https://speeding-star-23713.postman.co/workspace/My-Workspace~7f9fd373-f3b4-4a3d-8d6b-f63c010e450d/collection/4698578-7b591e36-6fd5-4291-bb76-be88f4daeacf?action=share&source=collection_link&creator=4698578"
+	},
+	"item": [
+		{
+			"name": "set new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseBody = pm.response.json();",
+							"",
+							"// Extract the JWT token from the response body",
+							"var jwtToken = responseBody.token; // Assuming the token is returned in the 'token' field",
+							"",
+							"// Save the JWT token to a Postman environment variable",
+							"pm.environment.set(\"jwt_token\", jwtToken);",
+							"",
+							"// Log the saved JWT token for verification (optional)",
+							"console.log(\"JWT Token:\", jwtToken);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImV4cCI6MTcxNTQ3ODUyOH0.ybPZdDq_sbwTKVikH_JJJZxlLJBAVhSXW_jZn1Rc-oc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser2\",\n    \"password\": \"testpassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/user",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"testpassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/register",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseBody = pm.response.json();",
+							"",
+							"// Extract the JWT token from the response body",
+							"var jwtToken = responseBody.token; // Assuming the token is returned in the 'token' field",
+							"",
+							"// Save the JWT token to a Postman environment variable",
+							"pm.environment.set(\"jwt_token\", jwtToken);",
+							"",
+							"// Log the saved JWT token for verification (optional)",
+							"console.log(\"JWT Token:\", jwtToken);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"testpassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/login",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "process document",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/rohan/Downloads/hsp and gim.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/process-document",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"process-document"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "chat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "query",
+							"value": "Can you describe the starting fof the doc and give a sumary",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/chat",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new-chat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "query",
+							"value": "Can you describe the starting fof the doc and give a sumary?",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/new-chat",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"new-chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://0.0.0.0:8000/user?username=testuser",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"user"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "testuser"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Documents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://0.0.0.0:8000/get-documents",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"get-documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document by docId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://0.0.0.0:8000/get-document/ec356996-c993-4dca-b63c-369cb1e0eb9c",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"get-document",
+						"ec356996-c993-4dca-b63c-369cb1e0eb9c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://0.0.0.0:8000/logout",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "jwt_token",
+			"value": "123"
+		}
+	]
+}
